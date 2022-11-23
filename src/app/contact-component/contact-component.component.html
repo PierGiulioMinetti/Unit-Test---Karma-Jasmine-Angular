@@ -1,0 +1,22 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="contactForm">
+    <br>
+    <div>
+        <label for="name">Name</label>
+        <input type="text" formControlName="name">
+    </div>
+    <br>
+    <div>
+        <label for="email">Email</label>
+        <input type="email" formControlName="email">
+    </div>
+    <br>
+    <div>
+        <label for="text">Text</label>
+        <input type="text" formControlName="text">
+    </div>
+    <br>
+    <button type="submit" [disabled]="!contactForm.valid">
+        submit
+    </button>
+    <br>
+</form>
