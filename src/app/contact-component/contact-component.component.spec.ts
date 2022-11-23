@@ -8,6 +8,10 @@ import { ContactComponentComponent } from './contact-component.component';
 describe('ContactComponentComponent', () => {
   let component: ContactComponentComponent;
   let fixture: ComponentFixture<ContactComponentComponent>;
+  //added
+  let de: DebugElement;
+  let el: HTMLElement;
+  // ______________________
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -18,6 +22,7 @@ describe('ContactComponentComponent', () => {
         FormsModule,
         ReactiveFormsModule
       ]
+      // ______________________
     })
       .compileComponents();
   });
@@ -25,7 +30,6 @@ describe('ContactComponentComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ContactComponentComponent);
     component = fixture.componentInstance;
-    //added
     fixture.detectChanges();
   });
 
@@ -35,9 +39,17 @@ describe('ContactComponentComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it('On submit the variable "submitted" should be set to true', waitForAsync(() => {
+  it('On submit() the variable "submitted" should be set to true', waitForAsync(() => {
     component.onSubmit();
     expect(component.submitted).toBeTruthy();
+  }))
+
+  it('should call the OnSubmit method', waitForAsync(() => {
+    fixture.detectChanges();
+    spyOn(component, 'onSubmit');
+    el = fixture.debugElement.query(By.css('button')).nativeElement;
+    el.click();
+    expect(component.onSubmit).toHaveBeenCalledTimes(0);
   }))
 
   it('form should be invalid', waitForAsync(() => {
@@ -53,4 +65,6 @@ describe('ContactComponentComponent', () => {
     component.contactForm.controls['text'].setValue('simple text');
     expect(component.contactForm.valid).toBeTruthy();
   }))
+
+
 });
